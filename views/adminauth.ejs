@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>ExoticFoods - AdminAuth </title>
+  <link href="images/e.png" rel="icon"> 
+  <link href="images/e.png" rel="apple-touch-icon">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/aos/aos.css" rel="stylesheet">
+  <link href="vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="stylesheets/login.css" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js"></script>
+</head>
+
+<body>
+<section class="h-100 gradient-form" style="background-color: #eee;">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-xl-10">
+        <div class="card rounded-3 text-black">
+          <div class="row g-0">
+            <div class="col-lg-6">
+              <div class="card-body p-md-5 mx-md-4">
+
+                <div class="text-center">
+                  <img src="images/e.png" style="width: 185px;" alt="logo">
+                </div>
+
+                <form id="login-form">
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="email">Email</label>
+                    <input type="email" id="email" class="form-control" required/>
+                  </div>
+
+                  <div data-mdb-input-init class="form-outline mb-4">
+                    <label class="form-label" for="pass">Senha</label>
+                    <input type="password" id="pass" class="form-control" required/>
+                  </div>
+
+                  <div class="text-center pt-1 mb-5 pb-1">
+                    <button type="submit" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3">Logar</button>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+              <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+const firebaseConfig = {
+apiKey: "AIzaSyCfERrABbsmOMOFn_b1z6YCUbOJ0kQSzRo",
+authDomain: "exoticfoodss.firebaseapp.com",
+projectId: "exoticfoodss",
+storageBucket: "exoticfoodss.firebasestorage.app",
+messagingSenderId: "378037181991",
+appId: "1:378037181991:web:7731c4c5ddd74a182a7802"
+};
+
+
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  document.getElementById('login-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('pass').value;
+
+    auth.signInWithEmailAndPassword(email, password)
+      .then((userCredential) => {
+        userCredential.user.getIdToken()
+  .then(idToken => {
+    fetch('http://localhost:3000', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ idToken })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.message === 'Login bem-sucedido!') {
+        alert("Login bem-sucedido!");
+        
+      } else {
+        alert("Erro no backend: " + data.message);
+      }
+    })
+    .catch(error => {
+      alert("Erro ao enviar para o backend: " + error.message);
+    });
+  });
+      })
+    })
+</script>
+</body>
+</html>

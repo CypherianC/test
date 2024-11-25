@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>ExoticFoods - AdminPage </title>
+  <link href="images/e.png" rel="icon"> 
+  <link href="images/e.png" rel="apple-touch-icon">
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="vendor/aos/aos.css" rel="stylesheet">
+  <link href="vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="stylesheets/style.css" rel="stylesheet">
+  <link href="stylesheets/login.css" rel="stylesheet">
+</head>
+
+<body class="index-page">
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="/" class="logo d-flex align-items-center me-auto me-xl-0">
+        <h1 class="sitename">Exotic</h1>
+        <span>Foods</span>
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="#book-a-table" class="active"> REGISTRO DE PRATOS<br></a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+      <a class="btn-getstarted" href="/">INICIO</a>
+    </div>
+  </header>
+
+  <main class="main">
+    <section id="book-a-table" class="book-a-table section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Cadastro de Pratos</h2>
+      </div>
+      <div class="container">
+        <div class="row g-0" data-aos="fade-up" data-aos-delay="100">
+          <div class="col-lg-4 reservation-img" style="background-image: url(images/reservation.jpg);"></div>
+          <div class="col-lg-8 d-flex align-items-center reservation-form-bg" data-aos="fade-up" data-aos-delay="200">
+            <form action="forms/book-a-table.php" method="post" role="form" class="php-email-form">
+              <div class="row gy-4">
+                <div class="col-lg-4 col-md-6">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Nome do Prato" required="">
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Descrição" required="">
+                </div>
+                <div class="col-lg-4 col-md-6">
+                  <input type="text" class="form-control" name="phone" id="phone" placeholder="Preço" required="">
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <input type="text" class="form-control" name="phone" id="phone" placeholder="Url da imagem" required="">
+                  </div>
+              </div>
+              <div class="text-center mt-3">
+                <div class="loading">Carregando</div>
+                <div class="error-message"></div>
+                <button type="submit">Adicionar prato</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer id="footer" class="footer dark-background">
+    <div class="container copyright text-center mt-4">
+      <p>© <span>2024</span><strong class="px-1 sitename">ExoticFoods.</strong><span>Todos os direitos reservados</span></p>
+    </div>
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <div id="preloader"></div>
+  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="vendor/php-email-form/validate.js"></script>
+  <script src="vendor/aos/aos.js"></script>
+  <script src="vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="javascripts/main.js"></script>
+
+</body>
+</html>
