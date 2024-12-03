@@ -13,7 +13,7 @@ git clone https://github.com/emal0n/exoticfoods.web
 ```bash
 node -v
 ```
-### Caso não tenha instalado
+### Caso não tenha instalado.
 ```bash
 https://nodejs.org/en
 ```
@@ -23,6 +23,7 @@ https://nodejs.org/en
 ```bash
 npm install express firebase-admin 
 ```
-
-
-
+### Inicialização do projeto.
+```bash
+npm start
+```
