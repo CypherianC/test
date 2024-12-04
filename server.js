@@ -1,24 +1,22 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const firebaseAdmin = require('firebase-admin');
-const reservationRoutes = require('./routes/reservationRoutes');
-
-// Inicializar o Firebase Admin com a chave privada
-const serviceAccount = require('./exoticfoodss-firebase-adminsdk-awtul-004bd15f0f.json');
-firebaseAdmin.initializeApp({
-  credential: firebaseAdmin.credential.cert(serviceAccount),
-  databaseURL: 'https://exoticfoodss-default-rtdb.firebaseio.com' // Use o seu URL do Firebase Realtime Database
-});
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+const db = require("./firebase");
 
 const app = express();
-const port = 3000;
+const PORT = 3000;
 
-// Middleware para ler o corpo das requisições
+app.use(cors());
 app.use(bodyParser.json());
 
-// Roteamento
-app.use('/reservations', reservationRoutes);
+app.post("/reservations", (req, res) => {
+  const { name, email, phone, date, time, people, message } = req.body;
 
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
+  const reservationRef = db.ref("reservations").push();
+  reservationRef
+    .set({ name, email, phone, date, time, people, message })
+    .then(() => res.status(200).send("Reserva salva com sucesso!"))
+    .catch((error) => res.status(500).send("Erro ao salvar reserva: " + error));
 });
+
+app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));

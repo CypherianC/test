@@ -1,13 +1,13 @@
-const firebaseAdmin = require('firebase-admin');
+const database = require("../config/firebaseConfig");
 
-// Função para salvar a reserva no Firebase Realtime Database
-exports.createReservation = async (reservationData) => {
+const createReservation = async (reservationData) => {
   try {
-    const db = firebaseAdmin.database();
-    const ref = db.ref('reservations'); // Referência ao nó 'reservations'
-    await ref.push(reservationData); // Adiciona uma nova reserva
-    return Promise.resolve();
+    const ref = database.ref("reservations");
+    await ref.push(reservationData);
+    return { message: "Reserva salva com sucesso!" };
   } catch (error) {
-    return Promise.reject(error);
+    throw new Error("Erro ao salvar reserva: " + error.message);
   }
 };
+
+module.exports = { createReservation };

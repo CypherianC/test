@@ -82,62 +82,42 @@
       </div>
     </section>
     <script>
-  const firebaseConfig = {
-      apiKey: "AIzaSyCfERrABbsmOMOFn_b1z6YCUbOJ0kQSzRo",
-      authDomain: "exoticfoodss.firebaseapp.com",
-      databaseURL: "https://exoticfoodss-default-rtdb.firebaseio.com",
-      projectId: "exoticfoodss",
-      storageBucket: "exoticfoodss.firebasestorage.app",
-      messagingSenderId: "378037181991",
-      appId: "1:378037181991:web:7731c4c5ddd74a182a7802"
-  };
-
-  const app = firebase.initializeApp(firebaseConfig);
-  const database = firebase.database(app);
-
-  function saveReservation(event) {
-  event.preventDefault();
-
-  const name = document.getElementById('name').value;
-  const email = document.getElementById('email').value;
-  const phone = document.getElementById('phone').value;
-  const date = document.getElementById('date').value;
-  const time = document.getElementById('time').value;
-  const people = document.getElementById('people').value;
-  const message = document.getElementById('message').value;
-
-  const reservationData = {
-    name: name,
-    email: email,
-    phone: phone,
-    date: date,
-    time: time,
-    people: people,
-    message: message
-  };
-
-  fetch('http://localhost:3000/reservations', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(reservationData)
-  })
-    .then(response => response.json())
-    .then(data => {
-      if (data.message) {
-        alert(data.message);
-        document.querySelector('.php-email-form').reset(); // Limpa o formulário
+      async function saveReservation() {
+        // Captura os dados do formulário
+        const reservationData = {
+          name: document.getElementById("name").value,
+          email: document.getElementById("email").value,
+          phone: document.getElementById("phone").value,
+          date: document.getElementById("date").value,
+          time: document.getElementById("time").value,
+          people: document.getElementById("people").value,
+          message: document.querySelector("[name='message']").value,
+        };
+    
+        try {
+          // Envia os dados para o backend
+          const response = await fetch("http://localhost:3000/reservations", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(reservationData),
+          });
+    
+          const responseBody = await response.text(); // Obtém o corpo da resposta como texto
+    
+          if (response.ok) {
+            alert("Reserva salva com sucesso!");
+            document.querySelector("form").reset();
+          } else {
+            // Exibe o erro detalhado que vem do servidor
+            alert("Erro ao salvar reserva: " + responseBody);
+          }
+        } catch (error) {
+          console.error("Erro no frontend:", error);
+          alert("Erro ao salvar reserva. Verifique o console para mais detalhes.");
+        }
       }
-    })
-    .catch(error => {
-      console.error('Erro ao enviar a reserva:', error);
-      alert('Ocorreu um erro. Tente novamente!');
-    });
-}
-
-   
-</script>
+    </script>
+    
     <section id="testimonials" class="testimonials section light-background">
       <div class="container section-title" data-aos="fade-up">
         <h2>Avaliações</h2>
